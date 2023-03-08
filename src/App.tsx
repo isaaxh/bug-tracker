@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import firebase from 'firebase/compat/app';
+import { config } from './config/config';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+
+
+firebase.initializeApp(config.firebaseConfig);
+
 
 function App() {
+
+  const auth = firebase.auth();
+
+  const [user] = useAuthState(auth as any);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {user ? <Home auth={auth} /> : <Login auth={auth}/>}
     </div>
   );
 }
+
 
 export default App;
