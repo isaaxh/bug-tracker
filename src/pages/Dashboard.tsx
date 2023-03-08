@@ -18,7 +18,7 @@ const Home = (props: HomeProps) => {
 
   return (
     <div>
-        <h1>HOME PAGE</h1>
+        <h1>Dashboard</h1>
         <div>WELCOME {displayName}! YOU ARE NOW ON HOME PAGE!</div>
         <SignOut auth={props.auth} />
     </div>

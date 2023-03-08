@@ -1,5 +1,5 @@
 import './App.css';
-import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 import Login from './pages/SignIn';
 import firebase from 'firebase/compat/app';
 import { config } from './config/config';
@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      {user ? <Home auth={auth} user={user}/> : <Login auth={auth}/>}
+      {user ? <Dashboard auth={auth} user={user}/> : <Login auth={auth}/>}
     </div>
   );
 }
