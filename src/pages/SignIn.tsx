@@ -1,11 +1,11 @@
 import firebase from "firebase/compat/app";
 import 'firebase/compat/auth';
 
-type LoginProps = {
+type SignInProps = {
   auth: any;
 }
 
-const Login = (props: LoginProps) => {
+const SignIn = (props: SignInProps) => {
 
   const signInWithGoogle =  () => {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -22,11 +22,11 @@ const Login = (props: LoginProps) => {
 }
 
 
-export const Logout = (props: LoginProps) => {
+export const SignOut = (props: SignInProps) => {
   return props.auth.currentUser && (
     <button onClick={() => props.auth.signOut()}>Logout</button>
   )
 }
 
 
-export default Login;
+export default SignIn;

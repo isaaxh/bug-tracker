@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Login from './pages/SignIn';
 import firebase from 'firebase/compat/app';
 import { config } from './config/config';
 import 'firebase/compat/firestore';

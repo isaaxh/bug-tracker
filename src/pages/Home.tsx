@@ -1,4 +1,4 @@
-import { Logout } from './Login';
+import { SignOut } from './SignIn';
 
 interface User {
     displayName: string | null;
@@ -20,7 +20,7 @@ const Home = (props: HomeProps) => {
     <div>
         <h1>HOME PAGE</h1>
         <div>WELCOME {displayName}! YOU ARE NOW ON HOME PAGE!</div>
-        <Logout auth={props.auth} />
+        <SignOut auth={props.auth} />
     </div>
   )
 }
