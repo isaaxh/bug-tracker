@@ -21,7 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      {user ? <Home auth={auth} /> : <Login auth={auth}/>}
+      {user ? <Home auth={auth} user={user}/> : <Login auth={auth}/>}
     </div>
   );
 }
