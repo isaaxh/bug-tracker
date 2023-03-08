@@ -1,30 +1,13 @@
 import firebase from "firebase/compat/app";
-import 'firebase/compat/auth';
 
-type SignInProps = {
-  auth: any;
-}
 
-const SignIn = (props: SignInProps) => {
+const SignIn = () => {
 
-  const signInWithGoogle =  () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    props.auth.signInWithPopup(provider);
-  }
-
-  return (
-    <div>
+    return (
+    <div className="page card sign-in">
         <h1>LOGIN PAGE</h1>
-        {/* <input /> */}
-        <button onClick={signInWithGoogle}>Sign in with google</button>
+        <button>Sign in with google</button>
     </div>
-  )
-}
-
-
-export const SignOut = (props: SignInProps) => {
-  return props.auth.currentUser && (
-    <button onClick={() => props.auth.signOut()}>Logout</button>
   )
 }
 

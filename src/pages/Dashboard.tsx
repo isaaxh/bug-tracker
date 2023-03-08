@@ -1,4 +1,3 @@
-import { SignOut } from './SignIn';
 
 interface User {
     displayName: string | null;
@@ -17,10 +16,9 @@ const Home = (props: HomeProps) => {
     const { displayName, email, photoURL } = props.user;
 
   return (
-    <div>
+    <div className='page'>
         <h1>Dashboard</h1>
         <div>WELCOME {displayName}! YOU ARE NOW ON HOME PAGE!</div>
-        <SignOut auth={props.auth} />
     </div>
   )
 }
