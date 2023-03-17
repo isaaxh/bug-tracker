@@ -1,0 +1,53 @@
+/* 
+  TABLE OF CONTENT:
+  1.GLOBAL STYLE
+  2. TYPE
+
+
+*/
+
+
+
+
+/* ===================
+      GLOBAL STYLES
+======================= */
+:root {
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+  --spacing-base: 16px;
+
+  --font-size-h1: calc(var(--font-size-base) * 2);
+  --font-size-h2: calc(var(--font-size-base) * 1.5);
+  --font-size-h3: var(--font-size-base);
+
+  --spacing-small: calc(var(--spacing-base) / 2);
+  --spacing-medium: var(--spacing-base);
+  --spacing-large: calc(var(--spacing-base) * 2);
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family:  -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+  Ubuntu, Helvetica Neue, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+  Segoe UI Symbol;
+}
+
+.App {
+  text-align: center;
+}
+
+/* ===================
+      TYPOGRAPHY
+======================= */
+
+
+
+
+/* =================
+      LAYOUTS
+==================== */
