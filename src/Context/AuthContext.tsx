@@ -7,10 +7,13 @@ interface AuthProviderProps {
     children: React.ReactNode,
 }
 
-type authType = ReturnType<typeof auth.createUserWithEmailAndPassword>;
+type authSignUpType = ReturnType<typeof auth.createUserWithEmailAndPassword>;
+type authSignInType = ReturnType<typeof auth.signInWithEmailAndPassword>;
+
 interface AuthContextType {
     currentUser: any,
-    signUp: (email: string, password: string) => authType;
+    signUp: (email: string, password: string) => authSignUpType;
+    logIn: (email: string, password: string) => authSignInType;
 }
 
 const AuthContext = React.createContext<AuthContextType | null>(null);
@@ -28,6 +31,10 @@ export function AuthProvider({children}: AuthProviderProps) {
         return auth.createUserWithEmailAndPassword(email, password);
     }
 
+    const logIn = (email: string, password: string) => {
+        return auth.signInWithEmailAndPassword(email, password);
+    }
+
         
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged( (user: any | null) => {
@@ -41,7 +48,8 @@ export function AuthProvider({children}: AuthProviderProps) {
 
     const AuthValues: AuthContextType = {
         currentUser,
-        signUp
+        signUp,
+        logIn
     }
     return (
     <AuthContext.Provider value={AuthValues}>

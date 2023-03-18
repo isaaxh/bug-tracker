@@ -7,32 +7,28 @@ import { Link, useNavigate } from 'react-router-dom';
 type contextPropsType = {
     currentUser: any;
     signUp: (email: string | undefined, password: string | undefined) => ReturnType<typeof auth.createUserWithEmailAndPassword>;    
+    logIn: (email: string | undefined, password: string | undefined) => ReturnType<typeof auth.signInWithEmailAndPassword>;    
 }
 
 
-function SignUp() {
+function LogIn() {
     let navigate = useNavigate();
     const emailRef = useRef<HTMLInputElement>();
     const passwordRef = useRef<HTMLInputElement>();
-    const confirmPasswordRef = useRef<HTMLInputElement>();
-    const { signUp } = useAuth() as contextPropsType;
+    const { logIn } = useAuth() as contextPropsType;
     const [error, setError] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        if(passwordRef.current?.value !== confirmPasswordRef.current?.value){
-            return setError('Passwords do not match!');
-        }
-
         try {
             setError('');
             setIsLoading(true);
-            await signUp(emailRef.current?.value, passwordRef.current?.value)
+            await logIn(emailRef.current?.value, passwordRef.current?.value)
             navigate("/dashboard")
         } catch {
-            setError('Failed to create an account')
+            setError('Failed to log in')
         }
         setIsLoading(false);
     }
@@ -41,7 +37,7 @@ function SignUp() {
   return (
     <div className={signUpCss.container}>
         <div className={signUpCss.card}>
-            <h2 className={signUpCss.title}>Sign Up</h2>
+            <h2 className={signUpCss.title}>Log In</h2>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit} className='form'>
                 <div className={signUpCss['form-group']}>
@@ -54,19 +50,14 @@ function SignUp() {
                     </label>
                     <input type="password" id='password' ref={passwordRef as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <div className={signUpCss['form-group']}>
-                    <label htmlFor="confirm-password" className={signUpCss.label}>Confirm Password 
-                    </label>
-                    <input type="password" id='confirm-password' ref={confirmPasswordRef as LegacyRef<HTMLInputElement>} required/>
-                </div>
-                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Sign Up</button>
+                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Sign In</button>
             </form>
         </div>
         <div className=''>
-            Already have an account? <Link to="/login">Log In</Link>
+            Need an account? <Link to='/signup'>Sign Up</Link>
         </div>
     </div>
   )
 }
 
-export default SignUp;
+export default LogIn;
