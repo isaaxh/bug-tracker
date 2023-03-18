@@ -38,7 +38,7 @@ function UpdateProfile() {
         }
 
         Promise.all(Promises).then(()=> {
-            navigate("/dashboard")
+            navigate("/")
         }).catch(() => {
             setError('Failed to update profile')
         }).finally(()=>{

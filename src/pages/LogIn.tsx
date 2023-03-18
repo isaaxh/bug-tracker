@@ -26,7 +26,7 @@ function LogIn() {
             setError('');
             setIsLoading(true);
             await logIn(emailRef.current?.value, passwordRef.current?.value)
-            navigate("/dashboard")
+            navigate("/")
         } catch {
             setError('Failed to log in')
         }
@@ -37,7 +37,7 @@ function LogIn() {
   return (
     <div className={signUpCss.container}>
         <div className={signUpCss.card}>
-            <h2 className={signUpCss.title}>Log In</h2>
+            <h1 className={signUpCss.title}>Log In</h1>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit} className='form'>
                 <div className={signUpCss['form-group']}>

@@ -24,6 +24,14 @@
   --spacing-small: calc(var(--spacing-base) / 2);
   --spacing-medium: var(--spacing-base);
   --spacing-large: calc(var(--spacing-base) * 2);
+
+  /* Global Colors  */
+  --error-message: 	#FEDDDC;
+  --success-message: 	#DCFEDD;
+  --warning-message: #FEFECC;
+  --info-message: #DCFFFE;
+
+  --btn-color: 
 }
 
 
@@ -45,8 +53,17 @@
       TYPOGRAPHY
 ======================= */
 
+h1 {
+  font-size: var(--font-size-h1);
+}
 
+h2 {
+  font-size: var(--font-size-h2);
+}
 
+h3 {
+  font-size: var(--font-size-h3)
+}
 
 /* =================
       LAYOUTS
@@ -65,4 +82,8 @@
 
 .btn {
   padding: 6px 12px;
+}
+
+.message-box {
+  /* height: ; */
 }

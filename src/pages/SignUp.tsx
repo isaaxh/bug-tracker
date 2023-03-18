@@ -31,7 +31,7 @@ function SignUp() {
             setError('');
             setIsLoading(true);
             await signUp(emailRef.current?.value, passwordRef.current?.value)
-            navigate("/dashboard")
+            navigate("/")
         } catch {
             setError('Failed to create an account')
         }
@@ -42,7 +42,7 @@ function SignUp() {
   return (
     <div className={signUpCss.container}>
         <div className={signUpCss.card}>
-            <h2 className={signUpCss.title}>Sign Up</h2>
+            <h1 className={signUpCss.title}>Sign Up</h1>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit} className='form'>
                 <div className={signUpCss['form-group']}>
