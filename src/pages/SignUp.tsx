@@ -1,30 +1,46 @@
 import signUpCss from '../css/SignUp.module.css'
-import { useRef, LegacyRef } from 'react';
+import { useRef, LegacyRef, useState } from 'react';
 import { useAuth } from "../Context/AuthContext";
+import { auth } from '../components/firebase';
 
-// type contextProps = {
-//     // signup: (arg1: string, arg2: string) => Promise<firebase.auth.UserCredential | undefined>;
-// }
-
-interface AuthValues {
+type contextPropsType = {
     currentUser: any;
-  }
+    signUp: (email: string | undefined, password: string | undefined) => ReturnType<typeof auth.createUserWithEmailAndPassword>;    
+}
+
 
 function SignUp() {
     const emailRef = useRef<HTMLInputElement>();
     const passwordRef = useRef<HTMLInputElement>();
     const confirmPasswordRef = useRef<HTMLInputElement>();
-
-    function handleSubmit(e:any) {
+    const { signUp } = useAuth() as contextPropsType;
+    const [error, setError] = useState<string>('')
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
+        if(passwordRef.current?.value !== confirmPasswordRef.current?.value){
+            return setError('Passwords do not match!');
+        }
+
+        try {
+            setError('');
+            setIsLoading(true);
+            await signUp(emailRef.current?.value, passwordRef.current?.value)
+        } catch {
+            setError('Failed to create an account')
+        }
+        setIsLoading(false);
     }
+    
 
   return (
     <div className={signUpCss.container}>
         <div className={signUpCss.card}>
             <h2 className={signUpCss.title}>Sign Up</h2>
-            <form action="#" className='form'>
+            {error && <p>{error}</p>}
+            <form onSubmit={handleSubmit} className='form'>
                 <div className={signUpCss['form-group']}>
                     <label htmlFor="email" className={signUpCss.label}>Email
                     </label>
@@ -40,7 +56,7 @@ function SignUp() {
                     </label>
                     <input type="password" id='confirm-password' ref={confirmPasswordRef as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <button type='submit' className={signUpCss.btn}>Sign Up</button>
+                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Sign Up</button>
             </form>
         </div>
         <div className=''>
