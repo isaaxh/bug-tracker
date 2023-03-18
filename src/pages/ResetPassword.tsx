@@ -1,34 +1,32 @@
 import signUpCss from '../css/SignUp.module.css'
 import { useRef, LegacyRef, useState } from 'react';
 import { useAuth } from "../Context/AuthContext";
-import { auth } from '../components/firebase';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 type contextPropsType = {
     currentUser: any;
-    signUp: (email: string | undefined, password: string | undefined) => ReturnType<typeof auth.createUserWithEmailAndPassword>;    
-    logIn: (email: string | undefined, password: string | undefined) => ReturnType<typeof auth.signInWithEmailAndPassword>;    
+    resetPassword: (email: string | undefined) => Promise<void>;
 }
 
 
-function LogIn() {
-    let navigate = useNavigate();
+function ResetPassword() {
     const emailRef = useRef<HTMLInputElement>();
-    const passwordRef = useRef<HTMLInputElement>();
-    const { logIn } = useAuth() as contextPropsType;
+    const { resetPassword } = useAuth() as contextPropsType;
     const [error, setError] = useState<string>('')
+    const [message, setMessage] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         try {
+            setMessage('');
             setError('');
             setIsLoading(true);
-            await logIn(emailRef.current?.value, passwordRef.current?.value)
-            navigate("/dashboard")
+            await resetPassword(emailRef.current?.value);
+            setMessage('Check your inbox for further instructions');
         } catch {
-            setError('Failed to log in')
+            setError('Failed to reset password');
         }
         setIsLoading(false);
     }
@@ -37,21 +35,17 @@ function LogIn() {
   return (
     <div className={signUpCss.container}>
         <div className={signUpCss.card}>
-            <h2 className={signUpCss.title}>Log In</h2>
+            <h2 className={signUpCss.title}>Password Reset</h2>
             {error && <p>{error}</p>}
+            {message && <p>{message}</p>}
             <form onSubmit={handleSubmit} className='form'>
                 <div className={signUpCss['form-group']}>
                     <label htmlFor="email" className={signUpCss.label}>Email
                     </label>
                     <input type="email" id='email' ref={emailRef  as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <div className={signUpCss['form-group']}>
-                    <label htmlFor="password" className={signUpCss.label}>Password
-                    </label>
-                    <input type="password" id='password' ref={passwordRef as LegacyRef<HTMLInputElement>} required/>
-                </div>
-                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Sign In</button>
-                 <Link to="/reset-password">Forgot password?</Link>
+                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Reset Password</button>
+                 <Link to="/login">Log In</Link>
             </form>
         </div>
         <div className=''>
@@ -61,4 +55,4 @@ function LogIn() {
   )
 }
 
-export default LogIn;
+export default ResetPassword;

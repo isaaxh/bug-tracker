@@ -1,73 +1,81 @@
 import signUpCss from '../css/SignUp.module.css';
 import { useRef, LegacyRef, useState } from 'react';
 import { useAuth } from "../Context/AuthContext";
-import { auth } from '../components/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 
 type contextPropsType = {
     currentUser: any;
-    signUp: (email: string | undefined, password: string | undefined) => 
-    ReturnType<typeof auth.createUserWithEmailAndPassword>;    
+    updateEmail: (email: string | undefined) => Promise<void>;
+    updatePassword: (password: string) => Promise<void>;
 }
 
 
-function SignUp() {
+function UpdateProfile() {
     let navigate = useNavigate();
     const emailRef = useRef<HTMLInputElement>();
     const passwordRef = useRef<HTMLInputElement>();
     const confirmPasswordRef = useRef<HTMLInputElement>();
-    const { signUp } = useAuth() as contextPropsType;
+    const { currentUser, updateEmail, updatePassword } = useAuth() as contextPropsType;
     const [error, setError] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
-    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-
+        
         if(passwordRef.current?.value !== confirmPasswordRef.current?.value){
             return setError('Passwords do not match!');
         }
-
-        try {
-            setError('');
-            setIsLoading(true);
-            await signUp(emailRef.current?.value, passwordRef.current?.value)
-            navigate("/dashboard")
-        } catch {
-            setError('Failed to create an account')
+        
+        const Promises = [];
+        setIsLoading(true);
+        setError('');
+        if(emailRef.current?.value !== currentUser.email){
+            Promises.push(updateEmail(emailRef.current?.value))
         }
-        setIsLoading(false);
+        if(passwordRef.current?.value){
+            Promises.push(updatePassword(passwordRef.current?.value))
+        }
+
+        Promise.all(Promises).then(()=> {
+            navigate("/dashboard")
+        }).catch(() => {
+            setError('Failed to update profile')
+        }).finally(()=>{
+            setIsLoading(false);
+        })
     }
     
 
   return (
     <div className={signUpCss.container}>
         <div className={signUpCss.card}>
-            <h2 className={signUpCss.title}>Sign Up</h2>
+            <h2 className={signUpCss.title}>Update Profile</h2>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit} className='form'>
                 <div className={signUpCss['form-group']}>
                     <label htmlFor="email" className={signUpCss.label}>Email
                     </label>
-                    <input type="email" id='email' ref={emailRef  as LegacyRef<HTMLInputElement>} required/>
+                    <input type="email" id='email' defaultValue={currentUser.email} ref={emailRef  as LegacyRef<HTMLInputElement>}/>
                 </div>
                 <div className={signUpCss['form-group']}>
                     <label htmlFor="password" className={signUpCss.label}>Password
                     </label>
-                    <input type="password" id='password' ref={passwordRef as LegacyRef<HTMLInputElement>} required/>
+                    <input type="password" id='password' placeholder='Enter new password' ref={passwordRef as LegacyRef<HTMLInputElement>}/>
                 </div>
                 <div className={signUpCss['form-group']}>
                     <label htmlFor="confirm-password" className={signUpCss.label}>Confirm Password 
                     </label>
-                    <input type="password" id='confirm-password' ref={confirmPasswordRef as LegacyRef<HTMLInputElement>} required/>
+                    <input type="password" id='confirm-password' placeholder='Confirm new password' ref={confirmPasswordRef as LegacyRef<HTMLInputElement>}/>
                 </div>
-                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Sign Up</button>
+                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Update Profile</button>
             </form>
         </div>
         <div className=''>
-            Already have an account? <Link to="/login">Log In</Link>
+            <Link to="/dashboard">Cancel</Link>
         </div>
     </div>
   )
 }
 
-export default SignUp;
+export default UpdateProfile;
