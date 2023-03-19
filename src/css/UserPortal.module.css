@@ -1,4 +1,4 @@
-/* ===============================Sign/Log Up/In PAGE STYLES=========================== */
+/* ===============================User Portal PAGE STYLES=========================== */
 
 .container {
     height: 100vh;
@@ -8,10 +8,15 @@
     justify-content: center;
 }
 
+.app-title {
+    margin-bottom: 2rem;
+    color: var(--clr-primary);
+}
+
 .card {
     background-color: white;
-    width: clamp(30%, 300px, 40%);
-    padding: 2rem;
+    width: min(300px, 70%);
+    padding: var(--spacing-base);
     border-radius: 4px;
     margin-bottom: 15px;
     box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.2);
@@ -51,6 +56,9 @@ input {
 }
 
 .btn:hover {
-    background-color: rgba(48, 48, 214, 0.873);
+    background-color: var(--clr-btn);
 }
 
+.links {
+    margin-top: 6px ;
+}

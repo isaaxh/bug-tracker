@@ -1,4 +1,4 @@
-import signUpCss from '../css/SignUp.module.css'
+import UserPortal from '../css/UserPortal.module.css'
 import { useRef, LegacyRef, useState } from 'react';
 import { useAuth } from "../Context/AuthContext";
 import { Link } from 'react-router-dom';
@@ -33,18 +33,18 @@ function ResetPassword() {
     
 
   return (
-    <div className={signUpCss.container}>
-        <div className={signUpCss.card}>
-            <h2 className={signUpCss.title}>Password Reset</h2>
+    <div className={UserPortal.container}>
+        <div className={UserPortal.card}>
+            <h2 className={UserPortal.title}>Password Reset</h2>
             {error && <p>{error}</p>}
             {message && <p>{message}</p>}
             <form onSubmit={handleSubmit} className='form'>
-                <div className={signUpCss['form-group']}>
-                    <label htmlFor="email" className={signUpCss.label}>Email
+                <div className={UserPortal['form-group']}>
+                    <label htmlFor="email" className={UserPortal.label}>Email
                     </label>
                     <input type="email" id='email' ref={emailRef  as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Reset Password</button>
+                <button disabled={isLoading} type='submit' className={UserPortal.btn}>Reset Password</button>
                  <Link to="/login">Log In</Link>
             </form>
         </div>

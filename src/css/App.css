@@ -25,13 +25,21 @@
   --spacing-medium: var(--spacing-base);
   --spacing-large: calc(var(--spacing-base) * 2);
 
-  /* Global Colors  */
-  --error-message: 	#FEDDDC;
-  --success-message: 	#DCFEDD;
-  --warning-message: #FEFECC;
-  --info-message: #DCFFFE;
+  --border-radius: 4px;
 
-  --btn-color: 
+  /* Global Colors  */
+  --clr-error: 	#FEDDDC;
+  --clr-success: 	#DCFEDD;
+  --clr-warning: #FEFECC;
+  --clr-info: #DCFFFE;
+
+  /* Theme colors */
+  --clr-primary: #FFCB2D; /* 30% */
+  --clr-secondary: #FFF8EA; /* 60% */
+  --clr-accent: #0d0d0d; /* 10% */
+  --clr-text: #0d0d0d;
+  --clr-btn: #1A72E9;
+  --clr-background: ;
 }
 
 
@@ -86,4 +94,39 @@ h3 {
 
 .message-box {
   /* height: ; */
+}
+
+
+.modal-overlay {
+  background-color: rgba(36, 36, 36, 0.3);
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+}
+
+.modal {
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(300px, 70%);
+  padding: var(--spacing-large);
+  border-radius: 4px;
+  margin-bottom: 15px;
+  box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.user-container {
+  margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+}
+
+.user-box {
+  /* background-color: var(--clr-btn); */
+  cursor: pointer;
 }

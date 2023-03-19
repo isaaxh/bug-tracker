@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../components/firebase'
+import { getAuth, onAuthStateChanged, updateEmail, updateProfile, User } from "firebase/auth";
 
 interface AuthProviderProps {
     children: React.ReactNode,
@@ -10,15 +11,25 @@ type authType = {
     logIn: ReturnType<typeof auth.signInWithEmailAndPassword>,
 }
 
+type ProfileUpdateData = {
+    displayName?: string | null,
+    photoURL?: string | null,
+}
+
 interface AuthContextType {
     currentUser: any,
     signUp: (email: string, password: string) => authType["signUp"],
     logIn: (email: string, password: string) => authType["logIn"],
     logOut: () => Promise<void>,
     resetPassword: (email: string) => Promise<void> | undefined,
-    updateEmail: (email: string) => Promise<void> | undefined,
-    updatePassword: (email: string) => Promise<void> | undefined,
+    updateEmailFn: (email: string) => Promise<void> | null,
+    updatePasswordFn: (email: string) => Promise<void> | null,
+    updateProfile?: (data:ProfileUpdateData ) => Promise<void>,
+    updateProfileFn: (user: User, displayName: string | null, photoURL: string | null) => Promise<void> | null;
 }
+
+
+
 
 const AuthContext = React.createContext<AuthContextType | null>(null);
 
@@ -28,7 +39,7 @@ export function useAuth() {
 
 
 export function AuthProvider({children}: AuthProviderProps) {
-    const [currentUser, setCurrentUser] = useState<AuthContextType>();
+    const [currentUser, setCurrentUser] = useState<User>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
     
     const signUp = (email: string, password: string) => {
@@ -47,17 +58,38 @@ export function AuthProvider({children}: AuthProviderProps) {
         return auth.sendPasswordResetEmail(email)
     }
 
-    const updateEmail = (email: string) => {
-        return currentUser?.updateEmail(email);
+    const updateEmailFn = (email: string) => {
+        if(!currentUser){
+            return null;
+        }
+        return updateEmail(currentUser, email);
     }
-    const updatePassword = (password: string) => {
-        return currentUser?.updatePassword(password);
+    const updatePasswordFn = (password: string) => {
+        if(!currentUser){
+            return null;
+        }
+        return updateEmail(currentUser, password);
+    }
+
+    const updateProfileFn = (user: User, displayName: string | null, photoURL: string | null) => {
+        if(user){
+            // console.log('name is updated')
+            // console.log('name in updateProfileFn: ', displayName)
+            return updateProfile(user, {
+                displayName,
+                photoURL
+            })
+        }
+        console.log('name is not updated')
+        return null;
     }
 
         
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged( (user: any | null) => {
-            setCurrentUser(user)
+        const unsubscribe = onAuthStateChanged( auth, (user) => {
+            if(user){
+                setCurrentUser(user)
+            }
             setIsLoading(false)
         })
         
@@ -71,8 +103,9 @@ export function AuthProvider({children}: AuthProviderProps) {
         logIn,
         logOut,
         resetPassword,
-        updateEmail,
-        updatePassword,
+        updateEmailFn,
+        updatePasswordFn,
+        updateProfileFn,
     }
     return (
     <AuthContext.Provider value={AuthValues}>

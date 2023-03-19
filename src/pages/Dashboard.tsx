@@ -1,18 +1,21 @@
-import signUpCss from '../css/SignUp.module.css';
+import UserPortal from '../css/UserPortal.module.css';
 import { useState } from 'react';
 import { useAuth } from '../Context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { User } from "firebase/auth";
 
 interface contextPropsType {
-  currentUser: any;
+  currentUser: User;
   logOut: () => Promise<void>;
 }
+
 
 const Dashboard = () => {
   let navigate = useNavigate();
   const [error, setError] = useState('');
   const { currentUser, logOut } = useAuth() as contextPropsType;
-
+  
+  console.log('user in dashboard: ',currentUser)
   async function handleLogOut() {
     setError('')
 
@@ -26,8 +29,9 @@ const Dashboard = () => {
   return (
     <div className='page'>
         <h1>Dashboard</h1>
-        <div className={signUpCss.card}>
+        <div className={UserPortal.card}>
           <h3>Profile</h3>
+          <div><strong>Name:</strong>{currentUser.displayName}</div>
           <div><strong>Email:</strong> {currentUser.email}</div>
           <Link to="/update-profile">Update profile</Link>
         </div>

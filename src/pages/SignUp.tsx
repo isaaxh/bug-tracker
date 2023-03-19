@@ -1,18 +1,19 @@
-import signUpCss from '../css/SignUp.module.css';
+import UserPortal from '../css/UserPortal.module.css';
 import { useRef, LegacyRef, useState } from 'react';
 import { useAuth } from "../Context/AuthContext";
 import { auth } from '../components/firebase';
 import { Link, useNavigate } from 'react-router-dom';
+import { User } from '@firebase/auth-types';
 
 type contextPropsType = {
-    currentUser: any;
     signUp: (email: string | undefined, password: string | undefined) => 
-    ReturnType<typeof auth.createUserWithEmailAndPassword>;    
+    ReturnType<typeof auth.createUserWithEmailAndPassword>; 
 }
 
 
 function SignUp() {
     let navigate = useNavigate();
+    const nameRef = useRef<HTMLInputElement>();
     const emailRef = useRef<HTMLInputElement>();
     const passwordRef = useRef<HTMLInputElement>();
     const confirmPasswordRef = useRef<HTMLInputElement>();
@@ -31,6 +32,11 @@ function SignUp() {
             setError('');
             setIsLoading(true);
             await signUp(emailRef.current?.value, passwordRef.current?.value)
+            .then((result)=>{
+                return result.user?.updateProfile({
+                    displayName: nameRef.current?.value
+                })
+            })
             navigate("/")
         } catch {
             setError('Failed to create an account')
@@ -38,29 +44,34 @@ function SignUp() {
         setIsLoading(false);
     }
     
-
-  return (
-    <div className={signUpCss.container}>
-        <div className={signUpCss.card}>
-            <h1 className={signUpCss.title}>Sign Up</h1>
+    
+    return (
+        <div className={UserPortal.container}>
+        <div className={UserPortal.card}>
+            <h1 className={UserPortal.title}>Sign Up</h1>
             {error && <p>{error}</p>}
             <form onSubmit={handleSubmit} className='form'>
-                <div className={signUpCss['form-group']}>
-                    <label htmlFor="email" className={signUpCss.label}>Email
+                <div className={UserPortal['form-group']}>
+                    <label htmlFor="name" className={UserPortal.label}>Name
+                    </label>
+                    <input type="text" id='name' ref={nameRef  as LegacyRef<HTMLInputElement>} required/>
+                </div>
+                <div className={UserPortal['form-group']}>
+                    <label htmlFor="email" className={UserPortal.label}>Email
                     </label>
                     <input type="email" id='email' ref={emailRef  as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <div className={signUpCss['form-group']}>
-                    <label htmlFor="password" className={signUpCss.label}>Password
+                <div className={UserPortal['form-group']}>
+                    <label htmlFor="password" className={UserPortal.label}>Password
                     </label>
                     <input type="password" id='password' ref={passwordRef as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <div className={signUpCss['form-group']}>
-                    <label htmlFor="confirm-password" className={signUpCss.label}>Confirm Password 
+                <div className={UserPortal['form-group']}>
+                    <label htmlFor="confirm-password" className={UserPortal.label}>Confirm Password 
                     </label>
                     <input type="password" id='confirm-password' ref={confirmPasswordRef as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <button disabled={isLoading} type='submit' className={signUpCss.btn}>Sign Up</button>
+                <button disabled={isLoading} type='submit' className={UserPortal.btn}>Sign Up</button>
             </form>
         </div>
         <div className=''>
