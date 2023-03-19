@@ -73,8 +73,6 @@ export function AuthProvider({children}: AuthProviderProps) {
 
     const updateProfileFn = (user: User, displayName: string | null, photoURL: string | null) => {
         if(user){
-            // console.log('name is updated')
-            // console.log('name in updateProfileFn: ', displayName)
             return updateProfile(user, {
                 displayName,
                 photoURL
