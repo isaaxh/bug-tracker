@@ -15,6 +15,8 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const { currentUser, logOut } = useAuth() as contextPropsType;
   
+  console.log(currentUser)
+
   async function handleLogOut() {
     setError('')
 
