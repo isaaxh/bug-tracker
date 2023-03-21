@@ -12,8 +12,8 @@ function Navbar({handleMenuState}: NavbarPropsTypes) {
     }
    
    return (<nav>
-      <div className={style['menu-container']}>
-        <MenuIcon onClick={() => handleMenuClick(true)} />
+      <div className={style['menu-btn-container']}>
+        <MenuIcon className={style['menu-icon']} onClick={() => handleMenuClick(true)} />
       </div>
       <div className={style['app-title-container']}>
         <h1>Bug Tracker</h1>
