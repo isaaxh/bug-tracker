@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { auth } from '../components/firebase'
-import { getAuth, onAuthStateChanged, updateEmail, updateProfile, User } from "firebase/auth";
+import { onAuthStateChanged, updateEmail, updateProfile, User } from "firebase/auth";
 
 interface AuthProviderProps {
     children: React.ReactNode,
@@ -27,8 +27,6 @@ interface AuthContextType {
     updateProfile?: (data:ProfileUpdateData ) => Promise<void>,
     updateProfileFn: (user: User, displayName: string | null, photoURL: string | null) => Promise<void> | null;
 }
-
-
 
 
 const AuthContext = React.createContext<AuthContextType | null>(null);

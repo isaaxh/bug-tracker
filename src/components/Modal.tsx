@@ -1,8 +1,21 @@
 import PersonIcon from '@mui/icons-material/Person';
+import React from 'react';
 
-const Modal = () => {
+interface ModalPropsType {
+    handleState: (state: boolean) => void;
+}
+
+
+const Modal = ({handleState}: ModalPropsType) => {
+    const overlayRef = React.createRef;
+
+
+    const handleModalClick = (state: boolean) => {
+        handleState(state)
+    }
+
   return (
-    <div className='modal-overlay'>
+    <div className='modal-overlay' ref={overlayRef} onClick={() => handleModalClick(false)}>
         <div className="modal">
             <h2>Choose a demo user</h2>
             <div className="user-container">
