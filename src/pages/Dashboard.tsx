@@ -1,8 +1,11 @@
 import UserPortal from '../css/UserPortal.module.css';
+import style from '../css/Dashboard.module.css';
 import { useState } from 'react';
 import { useAuth } from '../Context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { User } from "firebase/auth";
+import { User } from "firebase/auth"; 
+import Navbar from "../components/Navbar";
+import Sidebar from '../components/Sidebar';
 
 interface contextPropsType {
   currentUser: User;
@@ -14,7 +17,8 @@ const Dashboard = () => {
   let navigate = useNavigate();
   const [error, setError] = useState('');
   const { currentUser, logOut } = useAuth() as contextPropsType;
-  
+  let screenWidth = window.innerWidth;
+
   async function handleLogOut() {
     setError('')
     try{
@@ -25,8 +29,10 @@ const Dashboard = () => {
     }
   }
   return (
-    <div className='page'>
-        <h1>Dashboard</h1>
+    <div className={style.container}>
+      {screenWidth < 768 ? <Navbar /> : null}
+      {screenWidth > 768 ? <Sidebar /> : null}
+      <div className={style['main-content']}>
         <div className={UserPortal.card}>
           <h3>Profile</h3>
           <div><strong>Name:</strong>{currentUser.displayName}</div>
@@ -35,8 +41,9 @@ const Dashboard = () => {
         </div>
         {error && <p>{error}</p>}
         <Link to="/login" onClick={handleLogOut}>Logout</Link>
+      </div>
     </div>
   )
 }
 
-export default Dashboard;
+    export default Dashboard;

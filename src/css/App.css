@@ -97,6 +97,8 @@ h3 {
 }
 
 
+/* modal styling */
+
 .modal-overlay {
   background-color: rgba(36, 36, 36, 0.3);
   position: absolute;
@@ -130,3 +132,11 @@ h3 {
   /* background-color: var(--clr-btn); */
   cursor: pointer;
 }
+
+.modal-link {
+  /* color: #0000EE; */
+  color: #551A8B; 
+  cursor: pointer;
+  text-decoration: underline;
+}
+

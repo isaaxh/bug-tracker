@@ -1,0 +1,41 @@
+
+.container {
+    background-color: var(--clr-secondary);
+    height: 100vh;
+    
+}
+
+nav {
+    display: flex;
+    padding: var(--spacing-medium);
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media all and (min-width: 768px) {
+    nav {
+        display: none;
+    }
+    .container{
+        display: grid;
+        grid-template-columns: 20% 80%;
+    }
+ }
+
+
+.menu-container {
+
+}
+
+.page-container {
+    flex: 1;
+}
+
+.sidebar {
+    background-color: salmon;
+    /* width: 0%; */
+}
+
+.main-content {
+    background-color: cadetblue;
+}

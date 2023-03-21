@@ -39,7 +39,7 @@ function LogIn() {
     const handleModalState = (nextState: boolean) => {
         setIsModalActive(nextState)
     }
-    
+
     const handleDemoBtnClick = (state: boolean) => {
         handleModalState(state)
     }
@@ -66,7 +66,7 @@ function LogIn() {
                 <button disabled={isLoading} type='submit' className={styles.btn}>Sign In</button>
                  <Link to="/reset-password">Forgot password?</Link>
                  <div className={styles.links}>
-                    <button type='button' onClick={() => handleDemoBtnClick(true)}>Demo User</button>
+                    <a className='modal-link' onClick={() => handleDemoBtnClick(true)}>Demo User</a>
                  </div>
             </form>
         </div>
