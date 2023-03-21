@@ -18,7 +18,8 @@ const Dashboard = () => {
   const [error, setError] = useState('');
   const { currentUser, logOut } = useAuth() as contextPropsType;
   let screenWidth = window.innerWidth;
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+ 
   async function handleLogOut() {
     setError('')
     try{
@@ -28,10 +29,16 @@ const Dashboard = () => {
       setError('Failed to logout')
     }
   }
+
+  const handleMenuState = (nextState: boolean) => {
+    setIsMenuOpen(nextState)
+  }
+
   return (
     <div className={style.container}>
-      {screenWidth < 768 ? <Navbar /> : null}
-      {screenWidth > 768 ? <Sidebar /> : null}
+      <Sidebar menuState={isMenuOpen} handleMenuState={handleMenuState}/> 
+      {screenWidth < 768 ? <Navbar handleMenuState={handleMenuState} /> : null}
+      {/* {screenWidth > 768 ? <Sidebar /> : null} */}
       <div className={style['main-content']}>
         <div className={UserPortal.card}>
           <h3>Profile</h3>

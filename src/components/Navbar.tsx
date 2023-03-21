@@ -2,15 +2,20 @@ import style from '../css/Dashboard.module.css';
 import MenuIcon from '@mui/icons-material/Menu';
 
 interface NavbarPropsTypes {
-    // screenWidth: number;
+    handleMenuState: (state: boolean) => void; 
 }
 
-function Navbar({}: NavbarPropsTypes) {   
+function Navbar({handleMenuState}: NavbarPropsTypes) {   
+   
+    const handleMenuClick = (state: boolean) => {
+        handleMenuState(state)
+    }
+   
    return (<nav>
       <div className={style['menu-container']}>
-        <MenuIcon />
+        <MenuIcon onClick={() => handleMenuClick(true)} />
       </div>
-      <div className={style['page-container']}>
+      <div className={style['app-title-container']}>
         <h1>Bug Tracker</h1>
       </div>
     </nav>);

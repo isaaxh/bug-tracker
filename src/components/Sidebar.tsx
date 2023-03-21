@@ -1,10 +1,37 @@
 import style from '../css/Dashboard.module.css';
 
-function Sidebar({}) {
-    return (<div className={style.sidebar}>
+interface SidebarPropsType {
+  menuState: boolean;
+  handleMenuState: (state: boolean) => void;
+  
+}
+
+
+function Sidebar({menuState, handleMenuState}: SidebarPropsType) {
+    
+    
+    const handleBtnClick = (state: boolean) => {
+      handleMenuState(state)
+    }
+
+    let styling = {};
+    if(menuState){
+      styling = {
+        left: "0%"
+      }
+    } else {
+      styling = {
+        left: "-100%"
+      }
+    }
+
+    return (
+    <div className={style.sidebar} style={styling}>
       <div>hello</div>
       <div>tom holland</div>
-    </div>);
+      <button onClick={() => handleBtnClick(false)}>Close Menu</button>
+    </div>
+    );
   }
 
 export default Sidebar;
