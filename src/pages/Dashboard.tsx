@@ -36,18 +36,18 @@ const Dashboard = () => {
 
   return (
     <div className={style.container}>
-      <Sidebar displayName={currentUser.displayName} menuState={isMenuOpen} handleMenuState={handleMenuState}/> 
+      <Sidebar displayName={currentUser.displayName} menuState={isMenuOpen} 
+      handleMenuState={handleMenuState} handleLogOut={handleLogOut}/> 
       {screenWidth < 768 ? <Navbar handleMenuState={handleMenuState} /> : null}
       {/* {screenWidth > 768 ? <Sidebar /> : null} */}
       <div className={style['main-content']}>
-        {/* <div className={UserPortal.card}>
+        <div className={UserPortal.card}>
           <h3>Profile</h3>
           <div><strong>Name:</strong>{currentUser.displayName}</div>
           <div><strong>Email:</strong> {currentUser.email}</div>
           <Link to="/update-profile">Update profile</Link>
-        </div> */}
+        </div>
         {error && <p>{error}</p>}
-        <Link to="/login" onClick={handleLogOut}>Logout</Link>
       </div>
     </div>
   )
