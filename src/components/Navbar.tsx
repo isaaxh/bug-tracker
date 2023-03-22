@@ -1,24 +1,24 @@
 import style from '../css/Dashboard.module.css';
-import MenuIcon from '@mui/icons-material/Menu';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import profileImg1 from '../imgs/profile-img-1.webp';
+import profileImg2 from '../imgs/profile-img-2.webp';
 
-interface NavbarPropsTypes {
-    handleMenuState: (state: boolean) => void; 
+const Navbar = () => {
+  return (
+    <div className={style['navbar']}>
+        <div>
+            <h2 className="role">Role: Admin</h2>
+        </div>
+        <div className={style['profile-container']}>
+            <div className="notification-container">
+                <NotificationsIcon />
+            </div>
+            <div className="user-profile-container">
+                <img src={profileImg2} alt="profile-img" />
+            </div>
+        </div>
+    </div>
+  )
 }
 
-function Navbar({handleMenuState}: NavbarPropsTypes) {   
-   
-    const handleMenuClick = (state: boolean) => {
-        handleMenuState(state)
-    }
-   
-   return (<nav>
-      <div className={style['menu-btn-container']}>
-        <MenuIcon className={style['menu-icon']} onClick={() => handleMenuClick(true)} />
-      </div>
-      <div className={style['app-title-container']}>
-        <h1>Bug Tracker</h1>
-      </div>
-    </nav>);
-  }
-
-export default Navbar;
+export default Navbar

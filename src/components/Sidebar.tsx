@@ -44,8 +44,10 @@ function Sidebar({displayName, menuState, handleMenuState, handleLogOut}: Sideba
     <div className={style['sidebar-overlay']} style={overlayStyling}>
       <div className={style.sidebar} ref={sidebarRef} style={sidebarStyling}>
         <div className={style['sidebar-title-container']}>
-          <h3 className={style['sidebar-title']}>
-          <BugReportIcon/>Bug Tracker</h3>
+          <div className={style['logo-container']}>
+            <BugReportIcon className={style.logo}/>
+            <h3 className={style['sidebar-title']}>Bug Tracker</h3>
+          </div>
           <div>Welcome, {displayName}!</div>
         </div>
         <div className={style['sidebar-links-container']}>

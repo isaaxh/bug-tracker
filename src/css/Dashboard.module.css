@@ -5,14 +5,14 @@
     position: relative;
 }
 
-nav {
+.mobile-navbar {
     display: flex;
     padding: var(--spacing-medium);
     justify-content: space-between;
     align-items: center;
 }
 
-nav .menu-icon {
+.mobile-navbar .menu-icon {
     transform: scale(1.7);
 }
 
@@ -21,20 +21,57 @@ nav .menu-icon {
 }
 
 @media all and (min-width: 768px) {
-    nav {
-        display: none;
-    }
     .container{
         display: grid;
-        grid-template-columns: 175px auto;
+        grid-template-columns: 15vw auto;
+        grid-template-rows: 10vh auto;
     }
- }
-
- 
+    .sidebar {
+        grid-row: 1 / -1;
+    }
+    .main-content-container {
+        /* background-color: salmon; */
+        grid-column: 2 / -1;
+        grid-row: 2 / -1;
+    }
+}
 
 .app-title-container {
     flex: 1
 }
+.navbar {
+    grid-column: 2 / -1;
+}
+
+.navbar {
+    background-color: var(--clr-white);
+    padding: 0px 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    box-shadow: 15px 3px 15px rgba(0,0,0,0.2);
+}
+
+.navbar .profile-container {
+    display: flex;
+    align-items: center;
+    padding: 0px 0.5rem;
+    gap: 15px;
+}
+
+img {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
 
 /* .sidebar-overlay {
     position: absolute;
@@ -63,13 +100,21 @@ nav .menu-icon {
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
-    gap: 5px;
+    gap: 0.3rem;
 } 
 
 .sidebar-title {
+    font-size: 1.8rem;
+}
+
+.logo-container {
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
+}
+
+.logo {
+    transform: scale(1.5);
+    margin-right: .5rem;
 }
 
 .sidebar-links-container {
@@ -114,23 +159,15 @@ nav .menu-icon {
         position: static;
         width: auto;
     }
-    .sidebar-title {
-        font-size: 1.1rem;
-    }
-
+    
     .sidebar li {
-        font-size: 11px;
+        font-size: 1.1rem;
+        padding-left: 1rem;
     }
     
-
     .close-btn {
         display: none;
     }
  }
 
-.main-content {
-    /* background-color: cadetblue; */
-    display: flex;
-    justify-content: center;
-}
 
