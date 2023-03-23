@@ -14,7 +14,9 @@ function MainContent({error}: MainContentPropsType) {
 
     return (
     <div className={dashStyle['main-content-container']}>
-      {state.currentTab}
+      <div className={style['main-container']}>
+        {state.currentTab}
+      </div>
     </div>);
   }
   

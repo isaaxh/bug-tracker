@@ -39,7 +39,7 @@ interface TabValueContextProviderProps {
 }
 
 const initialState = {
-  activeTab: 'home',
+  activeTab: 'HOME',
   currentTab: <Home />,
 };
 

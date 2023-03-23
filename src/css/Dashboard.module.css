@@ -3,6 +3,12 @@
     background-color: var(--clr-secondary);
     height: 100vh;
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-container {
+    flex: 1;
 }
 
 .mobile-navbar {
@@ -33,6 +39,7 @@
         /* background-color: salmon; */
         grid-column: 2 / -1;
         grid-row: 2 / -1;
+        height: 100%;
     }
 }
 

@@ -7,7 +7,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TabValueContext } from '../Context/TabContext';
 
@@ -21,16 +21,10 @@ interface SidebarPropsType {
 function Sidebar({displayName, menuState, handleMenuState, handleLogOut}: SidebarPropsType) {
     const sidebarRef = React.createRef;
     const {state, dispatch, ACTIONS, ACTIVE_TABS} = useContext(TabValueContext)
-    
-    const handleBtnClick = (state: boolean) => {
-      handleMenuState(state)
+  
+    const handleBtnClick = (nextState: boolean) => {
+      handleMenuState(nextState)
     }
-    
-    
-    const handleMenuCloseClick = () => {
-      
-    }
-
 
     const sidebarStyling = {
       left: menuState ? "0%" : "-100%"
