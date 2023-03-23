@@ -147,6 +147,10 @@ img {
     background-color: var(--clr-primary);
 }
 
+.active-tab {
+    background-color: var(--clr-primary);
+}
+
 
 .sidebar-icon {
     transform: scale(0.8);

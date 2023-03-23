@@ -20,7 +20,7 @@ interface SidebarPropsType {
 
 function Sidebar({displayName, menuState, handleMenuState, handleLogOut}: SidebarPropsType) {
     const sidebarRef = React.createRef;
-    const {dispatch, ACTIONS} = useContext(TabValueContext)
+    const {state, dispatch, ACTIONS, ACTIVE_TABS} = useContext(TabValueContext)
     
     const handleBtnClick = (state: boolean) => {
       handleMenuState(state)
@@ -53,29 +53,35 @@ function Sidebar({displayName, menuState, handleMenuState, handleLogOut}: Sideba
         </div>
         <div className={style['sidebar-links-container']}>
         <ul>
-          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_HOME})}>
+          <li className={state.activeTab === ACTIVE_TABS.HOME ? style['active-tab'] : ''} 
+              onClick={() => dispatch({ type: ACTIONS.GO_TO_HOME})}>
             <DashboardIcon className={style['sidebar-icon']}/> 
             <div>Home</div>
           </li>
-          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MANAGE_ROLE_ASSIGNMENT})}>
+          <li className={state.activeTab === ACTIVE_TABS.MANAGE_ROLE_ASSIGNMENT ? style['active-tab'] : ''} 
+              onClick={() => dispatch({ type: ACTIONS.GO_TO_MANAGE_ROLE_ASSIGNMENT})}>
             <GroupAddIcon className={style['sidebar-icon']}/>
             <div>Manage Role Assignment</div>
           </li>
-          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MANAGE_PROJECT_USERS})}>
+          <li className={state.activeTab === ACTIVE_TABS.MANAGE_PROJECT_USERS ? style['active-tab'] : ''} 
+              onClick={() => dispatch({ type: ACTIONS.GO_TO_MANAGE_PROJECT_USERS})}>
             <GroupIcon className={style['sidebar-icon']}/>
             <div>Manage project Users</div>
           </li>
-          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MY_PROJECTS})}>
+          <li className={state.activeTab === ACTIVE_TABS.MY_PROJECTS ? style['active-tab'] : ''} 
+              onClick={() => dispatch({ type: ACTIONS.GO_TO_MY_PROJECTS})}>
             <FormatListBulletedIcon className={style['sidebar-icon']}/>
             <div>My Projects</div>
           </li>
-          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MY_TICKETS})}>
+          <li className={state.activeTab === ACTIVE_TABS.MY_TICKETS ? style['active-tab'] : ''} 
+              onClick={() => dispatch({ type: ACTIONS.GO_TO_MY_TICKETS})}>
             <ConfirmationNumberIcon className={style['sidebar-icon']}/>
             <div>My tickets</div>
           </li>
           </ul>
           <ul>
-          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_USER_PROFILE})}>
+          <li className={state.activeTab === ACTIVE_TABS.USER_PROFILE ? style['active-tab'] : ''} 
+              onClick={() => dispatch({ type: ACTIONS.GO_TO_USER_PROFILE})}>
             <AccountCircleIcon className={style['sidebar-icon']}/>
             <div>User Profile</div>
           </li>
