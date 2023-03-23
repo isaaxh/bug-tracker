@@ -1,8 +1,8 @@
-import React from 'react'
+import style from '../css/MainContent.module.css';
 
 const MyTickets = () => {
   return (
-    <div>MyTickets</div>
+    <div className={style.tab}>MyTickets</div>
   )
 }
 

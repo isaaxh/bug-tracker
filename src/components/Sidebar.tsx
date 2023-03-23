@@ -7,8 +7,9 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { TabValueContext } from '../Context/TabContext';
 
 interface SidebarPropsType {
   displayName: string | null;
@@ -17,9 +18,9 @@ interface SidebarPropsType {
   handleLogOut: () => Promise<void>;
 }
 
-
 function Sidebar({displayName, menuState, handleMenuState, handleLogOut}: SidebarPropsType) {
     const sidebarRef = React.createRef;
+    const {dispatch, ACTIONS} = useContext(TabValueContext)
     
     const handleBtnClick = (state: boolean) => {
       handleMenuState(state)
@@ -27,7 +28,7 @@ function Sidebar({displayName, menuState, handleMenuState, handleLogOut}: Sideba
     
     
     const handleMenuCloseClick = () => {
-
+      
     }
 
 
@@ -52,29 +53,29 @@ function Sidebar({displayName, menuState, handleMenuState, handleLogOut}: Sideba
         </div>
         <div className={style['sidebar-links-container']}>
         <ul>
-          <li>
+          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_HOME})}>
             <DashboardIcon className={style['sidebar-icon']}/> 
-            <div>Dashboard</div>
+            <div>Home</div>
           </li>
-          <li>
+          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MANAGE_ROLE_ASSIGNMENT})}>
             <GroupAddIcon className={style['sidebar-icon']}/>
             <div>Manage Role Assignment</div>
-            </li>
-          <li>
+          </li>
+          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MANAGE_PROJECT_USERS})}>
             <GroupIcon className={style['sidebar-icon']}/>
             <div>Manage project Users</div>
           </li>
-          <li>
+          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MY_PROJECTS})}>
             <FormatListBulletedIcon className={style['sidebar-icon']}/>
             <div>My Projects</div>
           </li>
-          <li>
+          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_MY_TICKETS})}>
             <ConfirmationNumberIcon className={style['sidebar-icon']}/>
             <div>My tickets</div>
           </li>
           </ul>
           <ul>
-          <li>
+          <li onClick={() => dispatch({ type: ACTIONS.GO_TO_USER_PROFILE})}>
             <AccountCircleIcon className={style['sidebar-icon']}/>
             <div>User Profile</div>
           </li>

@@ -1,8 +1,8 @@
-import React from 'react'
+import style from '../css/MainContent.module.css';
 
 const ManageProjectUsers = () => {
   return (
-    <div>ManageProjectUsers</div>
+    <div className={style.tab}>ManageProjectUsers</div>
   )
 }
 

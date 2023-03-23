@@ -1,6 +1,7 @@
+import { useContext } from 'react';
+import { TabValueContext } from '../Context/TabContext';
 import dashStyle from '../css/Dashboard.module.css'
 import style from '../css/MainContent.module.css'
-import UserProfile from '../pages/UserProfile';
 
 
 interface MainContentPropsType {
@@ -9,9 +10,11 @@ interface MainContentPropsType {
 
 
 function MainContent({error}: MainContentPropsType) {
+    const {state} = useContext(TabValueContext)
+
     return (
     <div className={dashStyle['main-content-container']}>
-      <UserProfile />
+      {state.currentTab}
     </div>);
   }
   

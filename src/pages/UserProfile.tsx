@@ -1,8 +1,9 @@
+import style from '../css/MainContent.module.css';
 import { Link } from "react-router-dom"
 
 const UserProfile = () => {
   return (
-    <div>
+    <div className={style.tab}>
       <h1>UserProfile</h1>
         <div>
           <div><strong>Name:</strong>Isaac Hussain</div>

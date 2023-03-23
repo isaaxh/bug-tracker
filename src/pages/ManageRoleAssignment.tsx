@@ -1,8 +1,8 @@
-import React from 'react'
+import style from '../css/MainContent.module.css';
 
 const ManageRoleAssignment = () => {
   return (
-    <div>ManageRoleAssignment</div>
+    <div className={style.tab}>ManageRoleAssignment</div>
   )
 }
 

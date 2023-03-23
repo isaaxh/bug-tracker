@@ -8,6 +8,7 @@ import MobileNavbar from "../components/MobileNavbar";
 import Sidebar from '../components/Sidebar';
 import MainContent from '../components/MainContent';
 import Navbar from '../components/Navbar';
+import { TabValueProvider } from '../Context/TabContext';
 
 interface contextPropsType {
   currentUser: User;
@@ -38,10 +39,12 @@ const Dashboard = () => {
 
   return (
     <div className={style.container}>
-      <Sidebar displayName={currentUser.displayName} menuState={isMenuOpen} 
-      handleMenuState={handleMenuState} handleLogOut={handleLogOut}/> 
-      {screenWidth < 768 ? <MobileNavbar handleMenuState={handleMenuState} /> : <Navbar />}
-      <MainContent error={error}/>
+      <TabValueProvider>
+        <Sidebar displayName={currentUser.displayName} menuState={isMenuOpen} 
+                handleMenuState={handleMenuState} handleLogOut={handleLogOut}/> 
+        {screenWidth < 768 ? <MobileNavbar handleMenuState={handleMenuState} /> : <Navbar />}
+        <MainContent error={error}/>
+      </TabValueProvider>
     </div>
   )
 }
