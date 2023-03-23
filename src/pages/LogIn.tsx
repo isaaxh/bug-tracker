@@ -5,6 +5,7 @@ import { auth } from '../components/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from '../components/Modal';
 import { User } from '@firebase/auth-types';
+import MessageBox from '../components/MessageBox';
 
 type contextPropsType = {
     currentUser: User;
@@ -51,7 +52,7 @@ function LogIn() {
         {/* <h1 className={styles['app-title']}>BugTracker</h1> */}
         <div className={styles.card}>
             <h1 className={styles.title}>Log In</h1>
-            {error && <p>{error}</p>}
+            {error && <MessageBox message={error} type='error'/>}
             <form onSubmit={handleSubmit} className='form'>
                 <div className={styles['form-group']}>
                     <label htmlFor="email" className={styles.label}>Email
@@ -63,7 +64,7 @@ function LogIn() {
                     </label>
                     <input type="password" id='password' ref={passwordRef as LegacyRef<HTMLInputElement>} required/>
                 </div>
-                <button disabled={isLoading} type='submit' className={styles.btn}>Sign In</button>
+                <button disabled={isLoading} type='submit' className={styles.btn}>Log In</button>
                  <Link to="/reset-password">Forgot password?</Link>
                  <div className={styles.links}>
                     <a className='modal-link' onClick={() => handleDemoBtnClick(true)}>Demo User</a>

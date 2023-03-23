@@ -41,6 +41,7 @@
   --clr-black: ;
   --clr-text: #0d0d0d;
   --clr-btn: #1A72E9;
+  --clr-btn-hover: #0561d8;
   --clr-background: ;
 
   --shadow: 0px 3px 15px rgba(0,0,0,0.2);
@@ -144,3 +145,24 @@ h3 {
   text-decoration: underline;
 }
 
+/* Message Box */
+
+.message-box {
+  /* border: 1px solid black; */
+  /* text-align: led; */
+  padding: 12px 6px;
+  border-radius: var(--border-radius);
+  margin: .5rem 0px;
+}
+
+.success {
+  background-color: var(--clr-success);
+}
+
+.error {
+  background-color: var(--clr-error);
+}
+
+.loading {
+  background-color: var(--clr-info);
+}

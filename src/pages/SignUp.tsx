@@ -4,6 +4,7 @@ import { useAuth } from "../Context/AuthContext";
 import { auth } from '../components/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from '@firebase/auth-types';
+import MessageBox from '../components/MessageBox';
 
 type contextPropsType = {
     signUp: (email: string | undefined, password: string | undefined) => 
@@ -19,6 +20,7 @@ function SignUp() {
     const confirmPasswordRef = useRef<HTMLInputElement>();
     const { signUp } = useAuth() as contextPropsType;
     const [error, setError] = useState<string>('')
+    // const [loadingMessage, setLoadingMessage] = useState<string>('')
     const [isLoading, setIsLoading] = useState<boolean>(false);
     
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -30,7 +32,9 @@ function SignUp() {
 
         try {
             setError('');
+            // setLoadingMessage('');
             setIsLoading(true);
+            // setLoadingMessage('Creating account...')
             await signUp(emailRef.current?.value, passwordRef.current?.value)
             .then((result)=>{
                 return result.user?.updateProfile({
@@ -49,7 +53,8 @@ function SignUp() {
         <div className={UserPortal.container}>
         <div className={UserPortal.card}>
             <h1 className={UserPortal.title}>Sign Up</h1>
-            {error && <p>{error}</p>}
+            {error && <MessageBox message={error} type='error'/>}
+            {/* {loadingMessage && <MessageBox message={loadingMessage} type='loading'/>} */}
             <form onSubmit={handleSubmit} className='form'>
                 <div className={UserPortal['form-group']}>
                     <label htmlFor="name" className={UserPortal.label}>Name
